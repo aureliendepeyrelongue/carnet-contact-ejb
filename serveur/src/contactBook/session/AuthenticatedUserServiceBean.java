@@ -69,6 +69,7 @@ public class AuthenticatedUserServiceBean implements AuthenticatedUserServiceItf
 	   PhoneNumber pn = new PhoneNumber(phoneKind,phoneNumber);
 
 	   friend.getPhones().add(pn);
+	   pn.setContact(friend);
 	   cg.getContacts().add(friend);
 	   friend.getContactGroups().add(cg);
 
@@ -79,9 +80,8 @@ public class AuthenticatedUserServiceBean implements AuthenticatedUserServiceItf
 	   catch(Exception e){
 		   e.printStackTrace();
 	   }
-	   return "Un nouveau contact ("+ firstName + " " + lastName +
-	   ") à été ajouté au groupe d'amis de " + authenticatedUser.getFirstName() + 
-	   " " + authenticatedUser.getLastName() +".";
+	   return "Ajout d'un nouveau contact ("+ firstName + " " + lastName +
+	   ") au groupe d'amis de " + authenticatedUser.getLastName() +".";
 	};
 
 	public String addPhoneNumber(String phoneKind, String phoneNumber){
@@ -91,6 +91,7 @@ public class AuthenticatedUserServiceBean implements AuthenticatedUserServiceItf
 		Contact authenticatedUser = (Contact) em.find(Contact.class,authenticatedUserId);
         PhoneNumber pn = new PhoneNumber(phoneKind,phoneNumber);
 		authenticatedUser.getPhones().add(pn);
+		pn.setContact(authenticatedUser);
 
 		try{
 			em.persist(authenticatedUser);
@@ -99,8 +100,8 @@ public class AuthenticatedUserServiceBean implements AuthenticatedUserServiceItf
 			e.printStackTrace();
 		}
 
-		return "Le numéro " + phoneNumber 
-		+ " a bien été ajouté à l'utilisateur " 
+		return "Succes de l'ajout du numero " + phoneNumber 
+		+ " pour l'utilisateur " 
 		+ authenticatedUser.getLastName()+".";
 
 	}

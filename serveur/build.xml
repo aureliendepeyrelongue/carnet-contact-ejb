@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <project name="monEssai" default="assemble-app" basedir=".">
 
 	<property name="app.dir" value="${basedir}" />
@@ -13,7 +14,7 @@
 	</target>
 
 	<target name="compile" depends="prepare">
-		<javac destdir="${build.dir}" debug="on">
+		<javac destdir="${build.dir}" debug="on" encoding="UTF-8">
 			<src path="${src.dir}" />
 			<classpath>
 				<pathelement location="${build.dir}" />

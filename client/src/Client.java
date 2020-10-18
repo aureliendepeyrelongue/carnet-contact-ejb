@@ -37,11 +37,11 @@ public class Client {
         menuOption = scanner.nextLine();
 
         if(menuOption.equals("1")){
-            System.out.println("Initialisation de la base de données avec des valeurs de test.");
+            System.out.println("\nInitialisation de la base de données avec des valeurs de test.");
             try{
                 fillDatabaseService.initDatabase();
                 
-                Thread.sleep(4000);
+                Thread.sleep(2000);
             }
             catch (Exception e){
                 System.err.println("Erreur lors de l'initialisation de valeurs dans la base.");
@@ -50,29 +50,30 @@ public class Client {
         }
         else if(menuOption.equals("2")){
 
-            System.out.println("Entrez un nom de groupe : (ex : M2miage) ");
+            System.out.println("\nEntrez un nom de groupe : (ex : M2miage) ");
             try{
                 String groupName;
             
                 groupName = scanner.nextLine();
                 // Appel d'un bean session stateless
                 List<String> phoneNumberList =  commonService.getPhoneNumbersByContactGroupName(groupName);
-    
+                System.out.println("Affichage des numéros de téléphone pour le groupe " + groupName + " : ")
                 for(String pn : phoneNumberList){
                     System.out.println(pn);
                 }
 
-                Thread.sleep(4000);
+                Thread.sleep(2000);
     
             }
             catch(Exception e){
+                System.err.println("Erreur lors de la récupération des numéros du groupe.");
                 e.printStackTrace();
             }
         }
         else if(menuOption.equals("3")){
             try {
                 
-                System.out.println("Entrez un nom de login : (Dupont)");
+                System.out.println("\nEntrez un nom de login : (Dupont)");
                 String loginName;
         
                 loginName = scanner.nextLine();
@@ -81,33 +82,63 @@ public class Client {
                 System.out.println(loginResponse);
     
                 System.out.println("Insertion d'un nouvel ami en base :");
+
+                System.out.println("Ajout des valeurs -> ");
+                System.out.println("Toto / Chevrel / toto.chevrel@gmail.com / 11 rue du mesnil / Le Mesnil / 78300 / France / Portable / 0645678932");
     
                 String addFriendResponse = authenticatedUserService.addContactToFriendGroup("Toto", "Chevrel", "toto.chevrel@gmail.com", "11 rue du mesnil",
                "Le Mesnil", "78300", "France", "Portable","0645678932");
                System.out.println(addFriendResponse);
-               
-               Thread.sleep(4000);
-    
+               Thread.sleep(2000);
             } catch (Exception e) {
+                System.err.println("Erreur lors de l'ajout d'un contact au groupe d'ami.");
                 e.printStackTrace();
-                //TODO: handle exception
             }
         }
         else if(menuOption.equals("4")){
             try {
+                System.out.println("\nEntrez un nom de login : (Dupont)");
+                String loginName, phoneKind, phoneNumber;
+        
+                loginName = scanner.nextLine();
+                String loginResponse = authenticatedUserService.login(loginName);
+                System.out.println(loginResponse + "\n");
+                System.out.println("\nNuméros de télépone de l'utilisateur "+loginName+" avant ajout :" );
+                List<String> phones = authenticatedUserService.getPhones();
+    
+                for(String pn : phones){
+                    System.out.println(pn);
+                }
+                System.out.println("\nInsertion d'un nouveau numéro de téléphone en base ->");
+                System.out.println("Type de téléphone à ajouter :");
+                phoneKind = scanner.nextLine();
+                System.out.println("Numéro de téléphone à ajouter :");
+                phoneNumber = scanner.nextLine();
                 
-                Thread.sleep(4000);
+                String addPhoneNumberResponse = authenticatedUserService.addPhoneNumber(phoneKind, phoneNumber);
+                System.out.println(addPhoneNumberResponse);
+                System.out.println("\nMise en pause du programme avant affichage des numéros de téléphones de l'utilisateur connecté.");
+                System.out.println("Tapez n'importe quoi pour continuer le programme :");
+                scanner.nextLine();
+                System.out.println("Numéros de télépone de l'utilisateur "+loginName+" après ajout :" );
+                phones = authenticatedUserService.getPhones();
+                for(String pn : phones){
+                    System.out.println(pn);
+                }
+
+            Thread.sleep(2000);
             } catch (Exception e) {
                 //TODO: handle exception
+                System.err.println("Erreur lors de l'ajout d'un numéro et/ou de son affichage.");
+                e.printStackTrace();
             }
         }
         else{
             menuContinue = false;
         }
-        
-
+        System.out.println("\n");
     }
-    System.out.println("Fin du client.");
+    System.out.println("Fin du processus client.");
 
 
     }
