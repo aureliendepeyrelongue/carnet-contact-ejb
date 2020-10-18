@@ -6,8 +6,8 @@ import java.util.*;
 
 import contactBook.entity.*;
 
-@Stateless (mappedName="contactService")
-public class ContactServiceBean implements ContactServiceItf {
+@Stateless (mappedName="commonService")
+public class CommonServiceBean implements CommonServiceItf {
     @PersistenceContext(unitName="carnetContactPU")
 	private EntityManager em;
 	

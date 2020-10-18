@@ -9,7 +9,7 @@
 	</target>
 
 	<target name="compile" depends="prepare">
-		<javac destdir="${build.dir}" debug="on">
+		<javac destdir="${build.dir}" debug="on" encoding="UTF-8">
 			<src path="${src.dir}" />
 			<classpath>
 				<pathelement location="${build.dir}" />

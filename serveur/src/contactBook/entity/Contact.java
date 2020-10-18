@@ -26,25 +26,25 @@ public class Contact implements Serializable {
 	@JoinTable(name="carnet_contact_ejb.CTC_GRP",
 	joinColumns=@JoinColumn(name="CTC_ID"),
 	inverseJoinColumns=@JoinColumn(name="GRP_ID"))
-	private Set<ContactGroup> contactGroups=new HashSet<>();
+	private Set<ContactGroup> contactGroups = new HashSet<>();
 	
 	public Contact(){
 	}
 
-	public Contact(String firstName, String lastName, String email, Address adress) {
+	public Contact(String firstName, String lastName, String email, Address address) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
-		this.address = adress;
+		this.address = address;
 	}
 	
-	public Contact(String firstName, String lastName, String email, Address adress, Set phones) {
+	public Contact(String firstName, String lastName, String email, Address address, Set phones) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
-		this.address = adress;
+		this.address = address;
 		this.phones = phones;
 	}
 
