@@ -1,7 +1,7 @@
 <project name="monEssai" default="assemble-app" basedir=".">
 
 	<property name="app.dir" value="${basedir}" />
-	<property name="app.name" value="contactTestMySQL1" />
+	<property name="app.name" value="carnetContactApp" />
 	<property name="src.dir" value="${app.dir}/src" />
 	<property name="build.dir" value="${app.dir}/build" />
 	<property name="conf.dir" value="${app.dir}/conf" />

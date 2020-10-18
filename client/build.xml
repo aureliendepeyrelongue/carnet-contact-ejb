@@ -1,4 +1,4 @@
-<project name="monEssai" default="assemble-app" basedir=".">
+<project name="monProjet" default="assemble-app" basedir=".">
 
 	<property name="app.dir" value="${basedir}" />
 	<property name="src.dir" value="${app.dir}/src" />

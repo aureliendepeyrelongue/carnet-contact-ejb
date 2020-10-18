@@ -7,7 +7,7 @@ import java.util.HashSet;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "jpa.phonenumbers")
+@Table(name = "carnet_contact_ejb.phone_numbers")
 public class PhoneNumber implements Serializable {
 
 	private static final long serialVersionUID = 5032950650642953367L;

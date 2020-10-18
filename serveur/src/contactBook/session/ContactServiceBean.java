@@ -6,10 +6,35 @@ import java.util.*;
 
 import contactBook.entity.*;
 
-@Stateless (mappedName="exoDemo2")
+@Stateless (mappedName="contactService")
 public class ContactServiceBean implements ContactServiceItf {
-    @PersistenceContext(unitName="exoDemo2PU")
-    private EntityManager em;
+    @PersistenceContext(unitName="carnetContactPU")
+	private EntityManager em;
+	
+	public List<String> getPhoneNumbersByContactGroupName(String contactGroupName)
+	throws Exception{
+	 List<ContactGroup> cgList = 
+	 em.createQuery("SELECT cg FROM ContactGroup cg WHERE cg.groupName LIKE :groupName")
+	 .setParameter("groupName",contactGroupName)
+	 .setMaxResults(1)
+	 .getResultList();
+	 
+	 List<String> pnList = new ArrayList<String>();
+
+	 if(cgList.size() == 0){
+		throw new Exception("Le groupe "+contactGroupName+" n'est pas présent en base de donnée");
+	 }
+
+	 ContactGroup cg = cgList.get(0);
+	  
+	 for (Contact contact : cg.getContacts()){
+		 for(PhoneNumber phone : contact.getPhones()){
+			 pnList.add(phone.getPhoneNumber());
+		 }
+	 }
+
+	 return pnList;
+	}
 
 	public List<String> getLesNoms()
 	{

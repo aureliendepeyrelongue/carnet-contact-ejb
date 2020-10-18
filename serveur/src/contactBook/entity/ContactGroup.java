@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "jpa.contactgroup")
+@Table(name = "carnet_contact_ejb.contact_groups")
 public class ContactGroup implements Serializable {
 
 
@@ -21,7 +21,7 @@ public class ContactGroup implements Serializable {
 	private String groupName;
 	@Id@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
-	@ManyToMany(mappedBy="contactGroups")
+	@ManyToMany(mappedBy="contactGroups",cascade = CascadeType.PERSIST)
 	private Set <Contact> contacts=new HashSet<Contact>();
 	
 	public ContactGroup(){

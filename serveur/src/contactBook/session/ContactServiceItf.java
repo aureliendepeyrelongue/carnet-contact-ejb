@@ -5,6 +5,7 @@ import java.util.*;
 
 @Remote()
 public interface ContactServiceItf {
+	public List<String> getPhoneNumbersByContactGroupName(String contactGroupName) throws Exception;
 	public List<String> getLesNoms();
 	public String addContact();
 	}
