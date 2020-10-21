@@ -13,7 +13,7 @@ public class AuthenticatedUserServiceBean implements AuthenticatedUserServiceItf
 	private long authenticatedUserId;
 	private boolean authenticated = false;
 	
-	public String login(String userName){
+	public String login(String userName) {
 		List<Contact> userList = 
 		em.createQuery("SELECT c FROM Contact c WHERE c.lastName LIKE :lastName")
 		.setParameter("lastName",userName)
@@ -21,7 +21,7 @@ public class AuthenticatedUserServiceBean implements AuthenticatedUserServiceItf
 		.getResultList();
 
 		if(userList.size() == 0 ){
-			return "Erreur d'authentification, l'utilisateur " + userName + "est inconnu.";
+			throw new Error("Erreur d'authentification, l'utilisateur " + userName + "est inconnu.");
 		}
 		 
 		authenticatedUserId = userList.get(0).getId();

@@ -1,0 +1,58 @@
+<project name="monProjet" default="assemble-app" basedir=".">
+
+	<property name="app.dir" value="${basedir}" />
+	<property name="app.name" value="carnetContactClientWeb" />
+	<property name="src.dir" value="${app.dir}/src" />
+	<property name="build.dir" value="${app.dir}/build" />
+	<property name="build.web.dir" value="${app.dir}/build/web" />
+	<property name="build.webinf.dir" value="${app.dir}/build/web/WEB-INF" />
+	<property name="build.lib.dir" value="${app.dir}/build/web/WEB-INF/lib" />
+	<property name="build.classes.dir" value="${app.dir}/build/web/WEB-INF/classes" />
+
+	<target name="prepare">
+		<mkdir dir="${build.dir}" />
+		<mkdir dir="${build.web.dir}" />
+		<mkdir dir="${build.webinf.dir}" />
+		<mkdir dir="${build.lib.dir}" />
+		<mkdir dir="${build.classes.dir}" />
+
+       <copy todir="${build.web.dir}">
+            <fileset dir="${src.dir}">
+			<include name="**/*.jsp"/>
+		</fileset>
+        </copy>
+        <copy todir="${build.webinf.dir}">
+            <fileset dir="${src.dir}">
+			<include name="**/*.xml"/>
+		</fileset>
+        </copy>
+<!--   uniquement si on a des lib
+    <copy todir="${build.lib.dir}">
+            <fileset dir="${app.dir}/lib"/>
+        </copy> -->
+
+	</target>
+
+	<target name="compile" depends="prepare">
+		<javac destdir="${build.classes.dir}" debug="on">
+			<src path="${src.dir}" />
+			<classpath>
+				<pathelement location="${build.classes.dir}" />
+				<pathelement location="${appserver.dir}/lib/appserv-rt.jar" />
+				<pathelement location="${appserver.dir}/lib/javaee.jar" />
+			</classpath>
+		</javac>
+	</target>
+
+
+	<!-- Package -->
+	<target name="jar" depends="compile">
+		<jar jarfile="${build.dir}/${app.name}.war">
+			<fileset dir="${build.web.dir}">
+				<include name="${build.webinf.dir}/**" />
+				<include name="**" />
+			</fileset>
+		</jar>
+	</target>
+
+</project>
