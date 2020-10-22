@@ -1,0 +1,1 @@
+Créer une base mySQL "carnet_contact_ejb" pour faire fonctionner le projet.
